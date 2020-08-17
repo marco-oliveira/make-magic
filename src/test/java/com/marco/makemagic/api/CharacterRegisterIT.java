@@ -42,7 +42,6 @@ class CharacterRegisterIT {
     private Character siriusBlack;
     private int sizeCharactersRegistered;
 
-
     @BeforeEach
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();

@@ -25,7 +25,7 @@ public class MakeMagicClient {
 
     public Flux<HouseClientDTO> getHouseClientByHouseId(final String houseId) {
        return webClient
-            .method(HttpMethod.GET)
+            .get()
             .uri(getUriBuilder(houseId, "/houses/{houseId}"))
             .retrieve()
             .bodyToFlux(HouseClientDTO.class);

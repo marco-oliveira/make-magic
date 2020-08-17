@@ -8,6 +8,7 @@ import com.marco.makemagic.api.repository.CharacterRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,8 +34,9 @@ public class CharacterService {
     }
 
     private void validateExistingHouse(final String house) {
-        HouseClientDTO houseClientDTO = this.makeMagicClient.getHouseClientByHouseId(house)
-            .blockFirst();
+        Flux<HouseClientDTO> houseClientDTOFlux = this.makeMagicClient.getHouseClientByHouseId(house);
+        HouseClientDTO houseClientDTO = houseClientDTOFlux.blockFirst();
+
         assert houseClientDTO != null;
         if (Objects.isNull(houseClientDTO.get_id())) {
             throw new ValidationHouseIdException();
