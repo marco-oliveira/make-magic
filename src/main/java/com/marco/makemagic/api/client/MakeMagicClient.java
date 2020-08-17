@@ -2,7 +2,6 @@ package com.marco.makemagic.api.client;
 
 import com.marco.makemagic.api.dto.HouseClientDTO;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;

@@ -10,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ public class CharacterService {
         return this.characterRepository.findAll();
     }
 
+    @Transactional
     public Character save(final Character character) {
         validateExistingHouse(character.getHouse());
         return this.characterRepository.save(character);
@@ -48,11 +50,13 @@ public class CharacterService {
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 
+    @Transactional
     public void remove(final Long id) {
         Character character = this.findByIdCharacter(id);
         this.characterRepository.delete(character);
     }
 
+    @Transactional
     public Character update(final Long id, final Character character) {
         Character existingCharacter = findByIdCharacter(id);
         BeanUtils.copyProperties(character, existingCharacter, "id");
