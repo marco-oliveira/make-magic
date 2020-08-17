@@ -60,7 +60,7 @@ public class CharacterService {
     public Character update(final Long id, final Character character) {
         Character existingCharacter = findByIdCharacter(id);
         BeanUtils.copyProperties(character, existingCharacter, "id");
-        return this.characterRepository.save(existingCharacter);
+        return save(existingCharacter);
     }
 
     public List<Character> findCharactersByHouse(final String house) {
