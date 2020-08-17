@@ -10,6 +10,11 @@ import reactor.core.publisher.Flux;
 import java.net.URI;
 import java.util.function.Function;
 
+/**
+ * Classe Client responsável por fazer a conexão com a api potterapi.
+ *
+ *  @author Marco Antônio
+ */
 @Component
 public class MakeMagicClient {
 
@@ -22,6 +27,12 @@ public class MakeMagicClient {
         this.webClient = webClient;
     }
 
+    /**
+     * Método responsável em fazer a busca de uma Casa no potterapi por 'houseId'.
+     *
+     * @param houseId -
+     * @return -
+     */
     public Flux<HouseClientDTO> getHouseClientByHouseId(final String houseId) {
        return webClient
             .get()
@@ -30,6 +41,13 @@ public class MakeMagicClient {
             .bodyToFlux(HouseClientDTO.class);
     }
 
+    /**
+     * Método responsável em buildar a uri para a consulta na api.
+     *
+     * @param pathVariable -
+     * @param path -
+     * @return -
+     */
     private Function<UriBuilder, URI> getUriBuilder(final String pathVariable, final String path) {
         return uriBuilder -> uriBuilder
             .path(path)

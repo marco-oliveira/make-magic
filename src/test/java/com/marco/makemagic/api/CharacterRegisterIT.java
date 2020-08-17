@@ -20,6 +20,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * Implementação teste de integração referente aos serviços do {@link Character}.
+ *
+ * @author Marco Antônio
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
@@ -42,6 +47,9 @@ class CharacterRegisterIT {
     private Character siriusBlack;
     private int sizeCharactersRegistered;
 
+    /**
+     * Configuração inicial.
+     */
     @BeforeEach
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
@@ -53,6 +61,9 @@ class CharacterRegisterIT {
         insertData();
     }
 
+    /**
+     * Teste que deve retornar status 200, quando buscar todos personagens.
+     */
     @Test
     void shouldReturnStatus200WhenConsultCharacters() {
         given()
@@ -63,6 +74,9 @@ class CharacterRegisterIT {
             .statusCode(HttpStatus.OK.value());
     }
 
+    /**
+     * Teste que deve retornar status 200, quando buscar um personagem por 'id'.
+     */
     @Test
     void shouldReturnStatus200AndCorrectResponseWhenConsulCharactersById() {
         given()
@@ -75,6 +89,9 @@ class CharacterRegisterIT {
             .body("name", equalTo(this.harryPotter.getName()));
     }
 
+    /**
+     * Teste que deve retornar status 404, quando buscar um personagem por 'id'.
+     */
     @Test
     void shouldReturnStatus404WhenConsulCharactersById() {
         given()
@@ -86,6 +103,9 @@ class CharacterRegisterIT {
             .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
+    /**
+     * Teste que deve retornar status 200 e quantidade de registros corretos, quando buscar uma lista personagem por 'house'.
+     */
     @Test
     void shouldReturnStatus200AndCorrectResponseSizeWhenConsulCharactersByHouse() {
         given()
@@ -98,6 +118,9 @@ class CharacterRegisterIT {
             .body("", hasSize(sizeCharactersRegistered));
     }
 
+    /**
+     * Teste que deve retornar status 201, quando salvar um personagem.
+     */
     @Test
     void shouldReturnStatus201WhenRegisterCharacter() {
         given()
@@ -110,6 +133,9 @@ class CharacterRegisterIT {
             .statusCode(HttpStatus.CREATED.value());
     }
 
+    /**
+     * Teste que deve retornar status 200 e resposta correta, quando alterar um personagem por 'id'.
+     */
     @Test
     void shouldReturnStatus200AndReturnCorrectResponseWhenUpdateCharacter() {
         given()
@@ -124,6 +150,9 @@ class CharacterRegisterIT {
             .body("name", equalTo(KATIE_BELL_NAME));
     }
 
+    /**
+     * Teste que deve retornar status 204, quando remover um personagem por 'id'.
+     */
     @Test
     void shouldReturnStatus204WhenDeleteCharacter() {
         given()
@@ -137,6 +166,9 @@ class CharacterRegisterIT {
         .statusCode(HttpStatus.NO_CONTENT.value());
     }
 
+    /**
+     * Insere dados iniciais no banco de dados.
+     */
     private void insertData() {
         this.harryPotter = new Character();
         this.harryPotter.setName("Harry Potter");

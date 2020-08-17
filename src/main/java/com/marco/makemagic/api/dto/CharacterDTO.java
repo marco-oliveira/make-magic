@@ -7,6 +7,11 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Classe de transferência referente a entidade {@link Character}.
+ *
+ * @author Marco Antônio
+ */
 public class CharacterDTO implements Serializable {
 
     private static final long serialVersionUID = -6612009885576934568L;

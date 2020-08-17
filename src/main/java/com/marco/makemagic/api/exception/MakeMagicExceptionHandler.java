@@ -22,6 +22,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Classe handler responsável por interceptar e tratar as exceções de forma amigavel para o usuário.
+ *
+ * @author Marco Antônio
+ */
 @RestControllerAdvice
 public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -31,6 +36,14 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
         this.messageSource = messageSource;
     }
 
+    /**
+     * Método handle referente a exceção {@link HttpMessageNotReadableException}.
+     * @param ex -
+     * @param headers -
+     * @param status -
+     * @param request -
+     * @return -
+     */
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -41,6 +54,15 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+    /**
+     * Método handle referente a exceção {@link MethodArgumentNotValidException}.
+     *
+     * @param ex -
+     * @param headers -
+     * @param status -
+     * @param request -
+     * @return -
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -49,6 +71,13 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+    /**
+     * Método handle referente a exceção {@link EmptyResultDataAccessException}.
+     *
+     * @param ex -
+     * @param request -
+     * @return -
+     */
     @ExceptionHandler({ EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("not.found", null, LocaleContextHolder.getLocale());
@@ -57,6 +86,13 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
+    /**
+     * Método handle referente a exceção {@link DataIntegrityViolationException}.
+     *
+     * @param ex -
+     * @param request -
+     * @return -
+     */
     @ExceptionHandler({ DataIntegrityViolationException.class } )
     public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("operation.not.permission", null, LocaleContextHolder.getLocale());
@@ -65,6 +101,13 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    /**
+     * Método handle referente a exceção {@link ValidationHouseIdException}.
+     *
+     * @param ex -
+     * @param request -
+     * @return -
+     */
     @ExceptionHandler({ ValidationHouseIdException.class } )
     public ResponseEntity<Object> handleValidationHouseIdException(ValidationHouseIdException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("house.id.not.exiting", null, LocaleContextHolder.getLocale());
@@ -73,6 +116,13 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    /**
+     * Método handle referente a exceção {@link WebClientResponseException}.
+     *
+     * @param ex -
+     * @param request -
+     * @return -
+     */
     @ExceptionHandler({ WebClientResponseException.class } )
     public ResponseEntity<Object> handleWebClientResponseException(WebClientResponseException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("webclient.error", null, LocaleContextHolder.getLocale());
@@ -81,6 +131,12 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    /**
+     * Responsável por criar uma lista de erros para apresentação.
+     *
+     * @param bindingResult -
+     * @return -
+     */
     private List<MakeMagicError> createErrorsList(final BindingResult bindingResult) {
         List<MakeMagicError> errors = new ArrayList<>();
 

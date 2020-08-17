@@ -15,6 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Classe utilitária, que tem a função de limpar o banco de dados a cada teste.
+ *
+ * @author Marco Antônio
+ */
 @Component
 public class DataBaseCleaner {
 
