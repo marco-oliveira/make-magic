@@ -2,11 +2,17 @@ package com.marco.makemagic.api.controller;
 
 import com.marco.makemagic.api.dto.CharacterDTO;
 import com.marco.makemagic.api.exception.MakeMagicError;
+import com.marco.makemagic.api.model.Character;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ * Interface de controle referente a entidade {@link Character} para documentação da api pelo Swagger.
+ *
+ *  @author Marco Antônio
+ */
 @Api(tags = "Personagens")
 public interface CharacterControllerOpenApi {
 

@@ -13,6 +13,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Classe de controle referente a entidade {@link Character}.
+ *
+ *  @author Marco Antônio
+ */
 @RestController
 @RequestMapping(path = "characters", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CharacterController implements CharacterControllerOpenApi {
@@ -25,6 +30,12 @@ public class CharacterController implements CharacterControllerOpenApi {
         this.characterMapper = characterMapper;
     }
 
+    /**
+     * Salva um Personagem conforme {@link CharacterDTO} informado.
+     *
+     * @param characterDTO -
+     * @return -
+     */
     @Override
     @PostMapping
     public ResponseEntity<CharacterDTO> save(@RequestBody @Valid final CharacterDTO characterDTO) {
@@ -33,6 +44,13 @@ public class CharacterController implements CharacterControllerOpenApi {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.characterMapper.toDTO(character));
     }
 
+    /**
+     * Altera um Personagem conforme {@link CharacterDTO} informado por 'characterId'.
+     *
+     * @param characterId -
+     * @param characterDTO -
+     * @return -
+     */
     @Override
     @PutMapping("{characterId}")
     public ResponseEntity<CharacterDTO> update(@PathVariable final Long characterId, @RequestBody @Valid final CharacterDTO characterDTO) {
@@ -41,6 +59,11 @@ public class CharacterController implements CharacterControllerOpenApi {
         return ResponseEntity.ok(this.characterMapper.toDTO(updatedCharacter));
     }
 
+    /**
+     * Remove um Personagem conforme o 'characterId' informado.
+     *
+     * @param characterId -
+     */
     @Override
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{characterId}")
@@ -48,6 +71,11 @@ public class CharacterController implements CharacterControllerOpenApi {
         this.characterService.remove(characterId);
     }
 
+    /**
+     * Retorna uma lista de {@link CharacterDTO}.
+     *
+     * @return -
+     */
     @Override
     @GetMapping
     public ResponseEntity<List<CharacterDTO>> getAllCharacters() {
@@ -58,6 +86,12 @@ public class CharacterController implements CharacterControllerOpenApi {
         return ResponseEntity.ok(charactersDTO);
     }
 
+    /**
+     * Retorna uma instância de {@link CharacterDTO} conforme o 'id' do personagem informado.
+     *
+     * @param characterId -
+     * @return -
+     */
     @Override
     @GetMapping("{characterId}")
     public ResponseEntity<CharacterDTO> getCharacterById(@PathVariable final Long characterId) {
@@ -66,6 +100,12 @@ public class CharacterController implements CharacterControllerOpenApi {
         return ResponseEntity.ok(characterDTO);
     }
 
+    /**
+     * Retorna uma lista de {@link CharacterDTO} conforme a 'house' do personagem informado.
+     *
+     * @param house -
+     * @return -
+     */
     @Override
     @GetMapping("/filter")
     public ResponseEntity<List<CharacterDTO>> getCharactersByHouse(@RequestParam final String house) {

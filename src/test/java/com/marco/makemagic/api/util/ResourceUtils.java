@@ -6,6 +6,11 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.util.StreamUtils;
 
+/**
+ * Classe utilitária, que tem a função de ler um arquivo do tipo json.
+ *
+ * @author Marco Antônio
+ */
 public class ResourceUtils {
 
     public static String getContentFromResource(String resourceName) {

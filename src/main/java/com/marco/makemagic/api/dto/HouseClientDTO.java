@@ -1,7 +1,13 @@
 package com.marco.makemagic.api.dto;
 
 import java.io.Serializable;
+import com.marco.makemagic.api.client.MakeMagicClient;
 
+/**
+ * Classe de transferência referente a serialização da consulta no {@link MakeMagicClient}.
+ *
+ * @author Marco Antônio
+ */
 public class HouseClientDTO implements Serializable {
 
     private static final long serialVersionUID = 3732648579131570922L;

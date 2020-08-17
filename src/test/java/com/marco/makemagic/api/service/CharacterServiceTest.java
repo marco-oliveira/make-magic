@@ -13,6 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import reactor.core.publisher.Flux;
 
+/**
+ * Implementação teste referente a classe de serviço {@link CharacterService}.
+ *
+ * @author Marco Antônio
+ */
 class CharacterServiceTest {
 
     @InjectMocks
@@ -24,12 +29,18 @@ class CharacterServiceTest {
     Character characterMock;
     HouseClientDTO houseClientDTO;
 
+    /**
+     * Configuração inicial.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
         initData();
     }
 
+    /**
+     * Teste que válida se uma 'house' informada existe na api 'potterapi'.
+     */
     @Test
     void shouldPassedInExistingHouseValidation() {
         when(this.makeMagicClient.getHouseClientByHouseId(this.characterMock.getHouse())).thenReturn(Flux.just(this.houseClientDTO));
@@ -37,6 +48,9 @@ class CharacterServiceTest {
         Assertions.assertNotNull(this.characterService.save(this.characterMock));
     }
 
+    /**
+     * Teste que válida se uma 'house' informada existe na api 'potterapi', e deve retornar a exception {@link ValidationHouseIdException}.
+     */
     @Test
     void shouldReturnValidationHouseIdExceptionInNotExistingHouse() {
         when(this.makeMagicClient.getHouseClientByHouseId(this.characterMock.getHouse())).thenReturn(Flux.just(new HouseClientDTO()));
@@ -44,6 +58,9 @@ class CharacterServiceTest {
         Assertions.assertThrows(ValidationHouseIdException.class, () -> this.characterService.save(this.characterMock));
     }
 
+    /**
+     * Insere dados iniciais no banco de dados.
+     */
     private void initData() {
         this.characterMock = new Character();
         this.characterMock.setHouse("123121321");

@@ -2,6 +2,11 @@ package com.marco.makemagic.api.exception;
 
 import java.io.Serializable;
 
+/**
+ * Classe de representação de Mensagem de Resposta utilizada nas implementações de {@link MakeMagicExceptionHandler}.
+ *
+ * @author Marco Antônio
+ */
 public class MakeMagicError implements Serializable {
 
     private final String userMessage;

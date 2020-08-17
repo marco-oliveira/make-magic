@@ -13,9 +13,19 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Classe responsável por configurar Swagger na aplicação.
+ *
+ *  @author Marco Antônio
+ */
 @Configuration
 @EnableSwagger2
 public class SpringFoxConfig implements WebMvcConfigurer {
+
+    /**
+     * Retorna configurações para a documentação do swagger.
+     * @return -
+     */
     @Bean
     public Docket apiDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -27,6 +37,11 @@ public class SpringFoxConfig implements WebMvcConfigurer {
             .tags(new Tag("Personagens", "Gerencia o Cadastro de Personagens"));
     }
 
+    /**
+     * Retorna informações padrões para o swagger.
+     *
+     * @return -
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
             .title("Make Magic API")
@@ -37,6 +52,10 @@ public class SpringFoxConfig implements WebMvcConfigurer {
             .build();
     }
 
+    /**
+     *
+     * @param registry -
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")

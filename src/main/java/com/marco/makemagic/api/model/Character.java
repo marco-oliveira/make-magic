@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Classe que representa o Personagem.
+ *
+ * @author Marco Antônio
+ */
 @Entity
 @Table(name = "characters")
 public class Character implements Serializable {

@@ -8,12 +8,22 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Classe responsável por configurar o WebClient para a api potterapi.
+ *
+ *  @author Marco Antônio
+ */
 @Configuration
 public class WebClientConfig {
 
     @Value("${client.api.baseurl}")
     private String baseUrl;
 
+    /**
+     * Retorna o build de um WebClient
+     *
+     * @return -
+     */
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
