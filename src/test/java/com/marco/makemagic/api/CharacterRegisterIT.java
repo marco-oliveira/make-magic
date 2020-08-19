@@ -54,7 +54,7 @@ class CharacterRegisterIT {
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
-        RestAssured.basePath = "/characters";
+        RestAssured.basePath = "/api/characters";
         this.jsonCharacter = ResourceUtils.getContentFromResource(
                 "/json/character.json");
         this.dataBaseCleaner.clearTables();

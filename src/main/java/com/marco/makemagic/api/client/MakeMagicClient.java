@@ -8,6 +8,7 @@ import org.springframework.web.util.UriBuilder;
 import reactor.core.publisher.Flux;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.function.Function;
 
 /**
@@ -23,6 +24,8 @@ public class MakeMagicClient {
     @Value("${client.api.key}")
     private String apiKey;
 
+    private static final Long TIMEOUT = 10000L;
+
     public MakeMagicClient(WebClient webClient) {
         this.webClient = webClient;
     }
@@ -36,7 +39,7 @@ public class MakeMagicClient {
     public Flux<HouseClientDTO> getHouseClientByHouseId(final String houseId) {
        return webClient
             .get()
-            .uri(getUriBuilder(houseId, "/houses/{houseId}"))
+            .uri(getUriBuilder(houseId, "/v1/houses/{houseId}"))
             .retrieve()
             .bodyToFlux(HouseClientDTO.class);
     }

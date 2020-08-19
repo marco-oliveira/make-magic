@@ -6,7 +6,7 @@ ARG ADDITIONAL_OPTS
 ENV PROFILE=${PROFILE}
 ENV ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
 
-WORKDIR /opt/sprin_boot
+WORKDIR /opt/app
 
 COPY /target/make-magic*.jar make_magic.jar
 
