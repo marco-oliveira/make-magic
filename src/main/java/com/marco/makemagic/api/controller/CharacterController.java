@@ -4,6 +4,7 @@ import com.marco.makemagic.api.dto.CharacterDTO;
 import com.marco.makemagic.api.mapper.CharacterMapper;
 import com.marco.makemagic.api.model.Character;
 import com.marco.makemagic.api.service.CharacterService;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -83,7 +85,9 @@ public class CharacterController implements CharacterControllerOpenApi {
         List<CharacterDTO> charactersDTO = characters.stream()
             .map(this.characterMapper::toDTO)
             .collect(Collectors.toList());
-        return ResponseEntity.ok(charactersDTO);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                .body(charactersDTO);
     }
 
     /**
@@ -97,7 +101,9 @@ public class CharacterController implements CharacterControllerOpenApi {
     public ResponseEntity<CharacterDTO> getCharacterById(@PathVariable final Long characterId) {
         Character character = this.characterService.findByIdCharacter(characterId);
         CharacterDTO characterDTO = this.characterMapper.toDTO(character);
-        return ResponseEntity.ok(characterDTO);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                .body(characterDTO);
     }
 
     /**
@@ -113,6 +119,8 @@ public class CharacterController implements CharacterControllerOpenApi {
         List<CharacterDTO> charactersDTO = characters.stream()
             .map(this.characterMapper::toDTO)
             .collect(Collectors.toList());
-        return ResponseEntity.ok(charactersDTO);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+                .body(charactersDTO);
     }
 }
