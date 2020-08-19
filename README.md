@@ -1,12 +1,12 @@
 # Make Magic API
 
 
-### Subir a aplicação em modo de produção com docker compose
+### Subir a aplicação com docker compose
 ```mvn clean install ```
 
 ```docker-compose up --build --force-recreate ```
 
-####Serviços Dockers
+Serviços Dockers
 * Banco de dados com MySql 5.7.
 * Migração e execução de scripts SQL com FlyWay.
 * Aplicação Spring Boot Make Magic API

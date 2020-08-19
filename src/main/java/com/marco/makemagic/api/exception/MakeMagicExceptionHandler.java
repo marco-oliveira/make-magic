@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Classe handler responsável por interceptar e tratar as exceções de forma amigavel para o usuário.
@@ -110,7 +111,7 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler({ ValidationHouseIdException.class } )
     public ResponseEntity<Object> handleValidationHouseIdException(ValidationHouseIdException ex, WebRequest request) {
-        String userMessage = messageSource.getMessage("house.id.not.exiting", null, LocaleContextHolder.getLocale());
+        String userMessage = messageSource.getMessage("house.id.not.exiting", new Object[]{ex.getMessage()}, LocaleContextHolder.getLocale());
         String devMessage = ExceptionUtils.getRootCauseMessage(ex);
         List<MakeMagicError> errors = Collections.singletonList(new MakeMagicError(userMessage, devMessage));
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
@@ -126,6 +127,14 @@ public class MakeMagicExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ WebClientResponseException.class } )
     public ResponseEntity<Object> handleWebClientResponseException(WebClientResponseException ex, WebRequest request) {
         String userMessage = messageSource.getMessage("webclient.error", null, LocaleContextHolder.getLocale());
+        String devMessage = ExceptionUtils.getRootCauseMessage(ex);
+        List<MakeMagicError> errors = Collections.singletonList(new MakeMagicError(userMessage, devMessage));
+        return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({ TimeoutException.class } )
+    public ResponseEntity<Object> handleTimeoutExceptionException(TimeoutException ex, WebRequest request) {
+        String userMessage = messageSource.getMessage("timeout.error" , new Object[]{ex.getMessage()}, LocaleContextHolder.getLocale());
         String devMessage = ExceptionUtils.getRootCauseMessage(ex);
         List<MakeMagicError> errors = Collections.singletonList(new MakeMagicError(userMessage, devMessage));
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);

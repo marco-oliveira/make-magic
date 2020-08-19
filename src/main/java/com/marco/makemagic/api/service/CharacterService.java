@@ -62,7 +62,7 @@ public class CharacterService {
 
         assert houseClientDTO != null;
         if (Objects.isNull(houseClientDTO.get_id())) {
-            throw new ValidationHouseIdException();
+            throw new ValidationHouseIdException(house);
         }
     }
 

@@ -51,7 +51,7 @@ class CharacterRegisterIT {
      * Configuração inicial.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "/api/characters";
